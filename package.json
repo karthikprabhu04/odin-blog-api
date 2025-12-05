@@ -1,0 +1,46 @@
+{
+  "name": "odin-blog-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/admin",
+    "apps/api",
+    "apps/public"
+  ],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "api": "npm run start --workspace=api",
+    "public": "node apps/public/index.js",
+    "admin": "node apps/admin/index.js",
+    "dev": "concurrently \"npm run api\" \"npm run public\" \"npm run admin\"",
+    "test-prisma": "node prisma-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karthikprabhu04/odin-blog-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karthikprabhu04/odin-blog-api/issues"
+  },
+  "homepage": "https://github.com/karthikprabhu04/odin-blog-api#readme",
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "concurrently": "^9.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@prisma/config": "^7.0.0",
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.22.0"
+  }
+}
