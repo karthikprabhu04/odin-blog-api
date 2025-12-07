@@ -1,4 +1,4 @@
-import prisma from './../../../prisma/client.js'
+import prisma from '../prisma/client.js'
 
 // GET /posts
 export async function getPosts(req, res) {
