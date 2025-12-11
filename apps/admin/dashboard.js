@@ -34,7 +34,10 @@ if (location.pathname.endsWith("dashboard.html")) {
     .then(res => res.json())
     .then(posts => {
       const div = document.getElementById("posts");
-      div.innerHTML = posts.map(p => `<a href="dashboardpost.html?id=${p.id}">${p.title} </a> <br> Created: ${p.createdAt}`).join("<br><br>");
+      div.innerHTML = posts.map(p => `
+        <a href="dashboardpost.html?id=${p.id}">${p.title} </a>
+        Created: ${p.createdAt}
+        `).join("<br><br>");
     });
 }
 
@@ -48,6 +51,12 @@ if (location.pathname.endsWith("dashboardpost.html")) {
       document.getElementById("post").innerHTML = `
               <h1>${post.title}</h1>
               <p>${post.content}</p>
+
+              <p>Status: <strong>${post.published ? "Published" : "Unpublished"}</strong></p>
+
+              <button class="toggle-publish" data-id="${post.id}">
+                ${post.published ? "Unpublish" : "Publish"}
+              </button>
 
               <button class="delete-btn" data-id="${post.id}">Delete</button>
               <button class="edit-btn" data-id="${post.id}">Edit</button>
@@ -92,6 +101,17 @@ if (location.pathname.endsWith("dashboardpost.html")) {
         // Reload page after update
         location.reload();
       });
+
+      // Toggle publish
+      document.querySelector(".toggle-publish").addEventListener("click", async () => {
+      await fetch(`http://localhost:3000/posts/${post.id}/toggle`, {
+        method: "PATCH",
+        headers: headers(),
+      });
+
+      alert("Publish status changed");
+      location.reload();
+      })
 
 
      document.getElementById("commentForm").addEventListener("submit", async (e) => {

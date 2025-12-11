@@ -49,3 +49,21 @@ export async function deletePost(req, res) {
 
   res.json({ message: "Post deleted" });
 }
+
+// Toggle publish on posts
+export async function togglePublishStatus(req, res) {
+  const id = Number(req.params.id);
+
+  const post = await prisma.post.findUnique({ where: { id } });
+
+  if (!post) {
+    return res.status(404).json({ error: "Post not found" });
+  }
+
+  const updated = await prisma.post.update({
+    where: { id },
+    data: { published: !post.published }
+  });
+
+  res.json(updated);
+}

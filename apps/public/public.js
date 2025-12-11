@@ -4,7 +4,12 @@ if (location.pathname.endsWith("index.html") || location.pathname === "/") {
     .then(res => res.json())
     .then(posts => {
       const div = document.getElementById("posts");
-      div.innerHTML = posts.map(p => `<a href="post.html?id=${p.id}">${p.title} </a> <br> Created: ${p.createdAt}`).join("<br><br>");
+      div.innerHTML = posts
+        .filter(p => p.published === true)
+        .map(p => `
+        <a href="post.html?id=${p.id}">${p.title} </a>
+        Created: ${p.createdAt}
+        `).join("<br><br>");
     });
 }
 
